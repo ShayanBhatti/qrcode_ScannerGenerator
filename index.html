@@ -4,47 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator and Scanner</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            margin: 0;
-            justify-content: center;
-        }
-        .container {
-            text-align: center;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #qrcode {
-            margin-top: 20px;
-        }
-        #reader {
-            width: 300px;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -63,42 +23,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-    <script>
-        function generateQRCode() {
-            const text = document.getElementById('text').value;
-            if (text) {
-                const qrCodeDiv = document.getElementById('qrcode');
-                qrCodeDiv.innerHTML = ''; // Clear previous QR code
-                const qr = qrcode(0, 'L');
-                qr.addData(text);
-                qr.make();
-                qrCodeDiv.innerHTML = qr.createImgTag();
-            } else {
-                alert('Please enter some text');
-            }
-        }
-
-        function startScanner() {
-            const html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start(
-                { facingMode: "environment" }, // Default camera
-                {
-                    fps: 10,    // Frames per second
-                    qrbox: { width: 250, height: 250 }  // QR code scanning box
-                },
-                qrCodeMessage => {
-                    document.getElementById('scanned-result').innerText = `Scanned result: ${qrCodeMessage}`;
-                    html5QrCode.stop();
-                },
-                errorMessage => {
-                    // Handle errors
-                    console.error(errorMessage);
-                }
-            ).catch(err => {
-                // Start failed, handle it
-                console.error(err);
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
